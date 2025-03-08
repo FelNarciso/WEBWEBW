@@ -1,1 +1,0 @@
-import{_ as o,c as s,b as t,o as a}from"./index-DJWH6sq9.js";const r={name:"About"},n={class:"page"};function c(d,e,p,u,i,l){return a(),s("div",n,e[0]||(e[0]=[t("h1",null,"About Us",-1),t("p",null,"We are dedicated to bringing you the best products at affordable prices.",-1)]))}const f=o(r,[["render",c]]);export{f as default};
