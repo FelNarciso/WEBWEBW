@@ -1,18 +1,30 @@
-export const cartStore = {
-  cart: [], // Shared cart array
+﻿import { reactive } from "vue";
 
-  // Add a product to the cart
+export const cartStore = reactive({
+  cart: JSON.parse(localStorage.getItem("cart")) || [],
+
   addToCart(product) {
-    this.cart.push(product);
+    const exists = this.cart.some((item) => item.id === product.id);
+    if (!exists) {
+      this.cart.push(product);
+      this.saveCart();
+      alert("✅ Added to cart successfully!"); // Temporary aesthetic notification
+    } else {
+      alert("❌ This product is already in your cart!");
+    }
   },
 
-  // Remove a product from the cart by index
   removeFromCart(index) {
     this.cart.splice(index, 1);
+    this.saveCart();
   },
 
-  // Get the current cart
-  getCart() {
-    return this.cart;
+  saveCart() {
+    localStorage.setItem("cart", JSON.stringify(this.cart));
+  },
+
+  loadCart() {
+    this.cart.length = 0;
+    this.cart.push(...(JSON.parse(localStorage.getItem("cart")) || []));
   }
-};
+});

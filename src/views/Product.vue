@@ -1,177 +1,176 @@
 <template>
-  <div class="container text-center mt-5">
-    <h2 class="mb-4">Our Products</h2>
+	<div class="product-page">
+		<div class="container mt-4 pt-4">
+			<!-- Adjusted padding-top to make it slightly higher -->
+			<!-- White box for "Our Products" -->
+			<div class="title-container">
+				<h2 class="text-center">Our Products</h2>
+			</div>
 
-    <!-- Search bar -->
-    <input
-      v-model="searchQuery"
-      type="text"
-      placeholder="Search products..."
-      class="form-control mb-4 w-50 mx-auto"
-    />
+			<!-- Centered Search Bar -->
+			<div class="row mb-4 justify-content-center">
+				<div class="col-12 col-md-8 col-lg-6 d-flex justify-content-center">
+					<input
+					  v-model="searchQuery"
+					  type="text"
+					  placeholder="Search products..."
+					  class="form-control search-bar"
+          />
+				</div>
+			</div>
 
-    <!-- Product grid -->
-    <div class="product-grid">
-      <div
-        v-for="(product, index) in filteredProducts"
-        :key="index"
-        class="product-item"
-      >
-        <div class="card shadow-lg">
-          <img :src="product.image" class="card-img-top" alt="Product Image" />
-          <div class="card-body">
-            <h5 class="card-title">{{ product.name }}</h5>
-            <p class="card-text">{{ product.description }}</p>
-            <p class="text-primary font-weight-bold">${{ product.price }}</p>
+			<!-- Product grid -->
+			<div class="product-grid">
+				<ProductCard
+				  v-for="product in filteredProducts"
+				  :key="product.id"
+				  :product="product"
+				  @add-to-cart="addToCart"
+        />
+			</div>
 
-            <!-- View Details (Opens Modal) -->
-            <button class="btn btn-info w-100 mb-2" @click="openModal(product)">
-              View Details
-            </button>
-
-            <!-- Add to Cart -->
-            <button class="btn btn-primary w-100" @click="addToCart(product)">
-              Add to Cart
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Cart Button -->
-    <router-link to="/cart" class="btn btn-success mt-4">
-      View Cart ({{ cart.length }})
-    </router-link>
-
-    <!-- Product Details Modal -->
-    <div v-if="selectedProduct" class="modal-overlay" @click="closeModal">
-      <div class="modal-content" @click.stop>
-        <!-- Close Button (X) -->
-        <button class="close-btn" @click="closeModal">&times;</button>
-
-        <img :src="selectedProduct.image" class="modal-image" alt="Product Image" />
-        <h3>{{ selectedProduct.name }}</h3>
-        <p>{{ selectedProduct.description }}</p>
-        <p class="text-primary font-weight-bold">${{ selectedProduct.price }}</p>
-      </div>
-    </div>
-  </div>
+			<!-- Fixed "View Cart" Button -->
+			<div class="fixed-cart-button">
+				<router-link to="/cart" class="btn btn-view-cart">
+					View Cart ({{ cart.length }})
+				</router-link>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      searchQuery: "",
-      products: [
-        { id: 1, name: "Product 1", description: "Amazing product.", price: 29.99, image: "https://via.placeholder.com/150" },
-        { id: 2, name: "Product 2", description: "You will love this one.", price: 39.99, image: "https://via.placeholder.com/150" },
-        { id: 3, name: "Product 3", description: "Top-quality and affordable.", price: 19.99, image: "https://via.placeholder.com/150" },
-        { id: 4, name: "Product 4", description: "Best seller!", price: 49.99, image: "https://via.placeholder.com/150" },
-        { id: 5, name: "Product 5", description: "Best seller!", price: 49.99, image: "https://via.placeholder.com/150" },
-      ],
-      cart: JSON.parse(localStorage.getItem("cart")) || [] // Retrieve cart from localStorage
-    };
-  },
-  computed: {
-    filteredProducts() {
-      return this.products.filter((product) =>
-        product.name.toLowerCase().includes(this.searchQuery.toLowerCase())
-      );
-    },
-  },
-  methods: {
-    addToCart(product) {
-      this.cart.push(product); // Add product to cart
-      localStorage.setItem("cart", JSON.stringify(this.cart)); // Save to localStorage
-      alert(`${product.name} added to cart!`);
-    },
-  },
-};
+	import ProductCard from "@/views/ProductCard.vue"; // Import the ProductCard component
+	import { cartStore } from "@/stores/cartStore.js"; // Import the cart store
+
+	export default {
+	components: {
+	ProductCard, // Register the ProductCard component
+	},
+	data() {
+	return {
+	searchQuery: "",
+	products: [
+	{ id: 1, name: "Product 1", description: "Amazing product.", price: 29.99, image: "https://via.placeholder.com/150" },
+	{ id: 2, name: "Product 2", description: "You will love this one.", price: 39.99, image: "https://via.placeholder.com/150" },
+	{ id: 3, name: "Product 3", description: "Top-quality and affordable.", price: 19.99, image: "https://via.placeholder.com/150" },
+	{ id: 4, name: "Product 4", description: "Best seller!", price: 49.99, image: "https://via.placeholder.com/150" },
+	{ id: 5, name: "Product 5", description: "Best seller!", price: 49.99, image: "https://via.placeholder.com/150" },
+	{ id: 6, name: "Product 1", description: "Amazing product.", price: 29.99, image: "https://via.placeholder.com/150" },
+	{ id: 7, name: "Product 2", description: "You will love this one.", price: 39.99, image: "https://via.placeholder.com/150" },
+	{ id: 8, name: "Product 3", description: "Top-quality and affordable.", price: 19.99, image: "https://via.placeholder.com/150" },
+	{ id: 9, name: "Product 4", description: "Best seller!", price: 49.99, image: "https://via.placeholder.com/150" },
+	{ id: 10, name: "Product 5", description: "Best seller!", price: 49.99, image: "https://via.placeholder.com/150" },
+	],
+	cart: JSON.parse(localStorage.getItem("cart")) || [], // Retrieve cart from localStorage
+	};
+	},
+	computed: {
+	filteredProducts() {
+	return this.products.filter((product) =>
+	product.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+	);
+	},
+	},
+	methods: {
+	addToCart(product) {
+	this.cart.push(product); // Add product to cart
+	localStorage.setItem("cart", JSON.stringify(this.cart)); // Save to localStorage
+	alert(`${product.name} added to cart!`);
+	},
+	},
+	};
 </script>
 
+<style scoped="">
+	/* Background for the entire page */
+	.product-page {
+	background-image: url('@/views/img/productbg.jpg'); /* Path to your background image */
+	background-size: cover; /* Ensures the image covers the entire page */
+	background-position: center; /* Centers the image */
+	background-repeat: no-repeat; /* Prevents the image from repeating */
+	background-attachment: fixed; /* Makes the background image fixed */
+	min-height: 100vh; /* Ensures the page covers the full viewport height */
+	padding-top: 60px; /* Adjusted to make it slightly higher */
+	position: relative; /* Needed for overlay positioning */
+	}
 
-<style scoped>
-/* Responsive product grid */
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 16px;
-  margin-left: 200px;
-  margin-right: 200px;
-}
+	/* Semi-transparent overlay */
+	.product-page::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.4); /* Black with 40% opacity */
+	z-index: 1; /* Ensures overlay is above the background image */
+	}
 
-/* Card styles */
-.card {
-  border-radius: 10px;
-  transition: transform 0.3s ease-in-out;
-}
-.card:hover {
-  transform: scale(1.05);
-}
+	/* Container */
+	.container {
+	position: relative; /* Ensures content is above the overlay */
+	z-index: 2; /* Higher than overlay */
+	background: transparent; /* Remove white background */
+	border-radius: 10px; /* Rounded corners */
+	padding: 20px; /* Add some padding */
+	}
 
-/* Search input */
-input {
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-}
+	/* White box for "Our Products" */
+	.title-container {
+	background: white; /* White background */
+	color: black; /* Black text */
+	padding: 20px; /* Add padding */
+	border-radius: 8px; /* Rounded corners */
+	margin-bottom: 20px; /* Space below the title */
+	max-width: 600px; /* Same width as the search bar */
+	margin-left: auto; /* Center horizontally */
+	margin-right: auto; /* Center horizontally */
+	text-align: center; /* Center text */
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+	}
 
-/* Modal Styling */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+	/* Search Bar */
+	.search-bar {
+	width: 100%; /* Make the search bar fill its container */
+	max-width: 600px; /* Adjust the maximum width as needed */
+	margin: 0 auto; /* Center the search bar horizontally */
+	padding: 12px; /* Adjust padding */
+	font-size: 16px; /* Adjust font size */
+	border-radius: 8px; /* Add rounded corners */
+	border: 1px solid #ddd; /* Add a border */
+	background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+	}
 
-.modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  text-align: center;
-  width: 400px;
-  max-height: 80vh;
-  overflow-y: auto; /* Enables scrolling */
-  position: relative;
-}
+	/* Product Grid */
+	.product-grid {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr); /* 5 columns */
+	gap: 16px; /* Space between items */
+	row-gap: 100px; /* Adds spacing between rows */
+	margin: 0 200px; /* Add 200px spacing on both sides */
+	}
 
-/* Modal Image */
-.modal-image {
-  width: 100%;
-  border-radius: 5px;
-}
+	/* Fixed "View Cart" Button */
+	.fixed-cart-button {
+	position: fixed; /* Fix the button in place */
+	bottom: 20px; /* Position it 20px from the bottom */
+	right: 20px; /* Position it 20px from the right */
+	z-index: 1000; /* Ensure it's above other content */
+	}
 
-/* Close Button (X) */
-/* Close Button (Circular) */
-.close-btn {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  width: 32px;
-  height: 32px;
-  border: none;
-  background: #ff4d4d; /* Red close button */
-  color: white;
-  font-size: 20px;
-  font-weight: bold;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: 0.3s;
-}
+	.fixed-cart-button .btn-view-cart {
+	background: black; /* Black background */
+	color: white; /* White text */
+	padding: 12px 24px; /* Adjust padding */
+	font-size: 1rem; /* Adjust font size */
+	border-radius: 8px; /* Rounded corners */
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+	transition: transform 0.3s ease-in-out;
+	}
 
-/* Hover Effect */
-.close-btn:hover {
-  background: #cc0000;
-  transform: scale(1.1);
-}
-
-</style>
+	.fixed-cart-button .btn-view-cart:hover {
+	background: #333; /* Darker black on hover */
+	transform: scale(1.05); /* Add hover effect */
+	}
+</style>	
