@@ -1,0 +1,1 @@
+import{_ as e,c as s,b as o,o as n}from"./index-DJWH6sq9.js";const a={name:"Contact"},c={class:"page"};function r(p,t,u,i,l,_){return n(),s("div",c,t[0]||(t[0]=[o("h1",null,"Contact Us",-1),o("p",null,"Reach out to us for inquiries and support.",-1)]))}const f=e(a,[["render",r]]);export{f as default};
