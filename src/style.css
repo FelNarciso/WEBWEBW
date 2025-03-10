@@ -1,149 +1,46 @@
-/* Global Styles */
+/* Global CSS with improved media queries */
+
+/* Mobile-first approach */
 :root {
-  font-family: Arial, Helvetica, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color: #213547;
-  background-color: #ffffff;
-  
-  --primary-color: #ff6600;
-  --secondary-color: #ffcc00;
-  --gradient-taskbar: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  --breakpoint-sm: 480px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1200px;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  min-width: 320px;
-  min-height: 100vh;
-  background-color: #ffffff;
-  padding-top: 70px; /* Prevents content from being hidden under navbar */
+.responsive-container {
+  padding: 5px;
+  background-color: lightgreen;
 }
 
-/* Navigation Bar */
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: var(--gradient-taskbar);
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 1000; /* Ensures navbar stays on top */
-  padding: 15px 5%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.navbar .nav-link {
-  color: white;
-  text-decoration: none;
-  font-weight: 500;
-  padding: 8px 12px;
-  border-radius: 5px;
-  transition: 0.3s;
-}
-
-.navbar .nav-link:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-/* Dropdown Navigation */
-.nav-item.dropdown:hover .dropdown-menu {
-  display: block;
-}
-
-/* Hero Section */
-.hero-section {
-  background: url('https://via.placeholder.com/1200x400') no-repeat center center/cover;
-  padding: 100px 0;
-  text-align: center;
-  color: white;
-  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
-}
-
-/* Buttons */
-button {
-  border-radius: 8px;
-  border: none;
-  padding: 10px 20px;
-  font-size: 1em;
-  font-weight: 600;
-  background: var(--primary-color);
-  color: white;
-  cursor: pointer;
-  transition: background 0.3s ease-in-out;
-}
-button:hover {
-  background: var(--secondary-color);
-  color: black;
-}
-
-/* Product Grid */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
-.card {
-  transition: transform 0.3s ease-in-out;
-  border-radius: 10px;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-}
-.card:hover {
-  transform: scale(1.05);
-}
-
-/* Image Gallery */
-.image-gallery img {
-  width: 100%;
-  border-radius: 10px;
-}
-
-/* Lightbox */
-.lightbox {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  justify-content: center;
-  align-items: center;
-}
-.lightbox img {
-  max-width: 90%;
-  max-height: 90%;
-  border-radius: 10px;
-}
-
-/* Form Styling */
-form input, form textarea {
-  width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-form button {
-  margin-top: 10px;
-}
-
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .hero-section {
-    padding: 50px 0;
+/* Small devices (landscape phones, 480px and up) */
+@media (min-width: var(--breakpoint-sm)) {
+  .responsive-container {
+    padding: 10px;
+    background-color: lightcoral;
   }
-  .navbar {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: var(--breakpoint-md)) {
+  .responsive-container {
+    padding: 20px;
+    background-color: lightblue;
   }
-  .nav-links {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+}
+
+/* Large devices (desktops, 1024px and up) */
+@media (min-width: var(--breakpoint-lg)) {
+  .responsive-container {
+    padding: 30px;
+    background-color: lightpink;
+  }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: var(--breakpoint-xl)) {
+  .responsive-container {
+    padding: 40px;
+    background-color: lightyellow;
   }
 }

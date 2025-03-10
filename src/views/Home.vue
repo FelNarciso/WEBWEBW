@@ -62,7 +62,7 @@
 			</div>
 		</div>
 	</div>
-</template>
+</template>	
 
 <style scoped="">
 	/* Your existing styles */

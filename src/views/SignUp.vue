@@ -9,19 +9,18 @@
         </div>
         <div class="form-group">
           <label for="password">Password</label>
-          <div class="password-wrapper">
-            <input :type="showPassword ? 'text' : 'password'" id="password" v-model="password" required />
-            <button type="button" class="toggle-password" @click="togglePassword">👁</button>
-          </div>
+          <input type="password" id="password" v-model="password" required />
         </div>
-        <button type="submit" :disabled="loading">{{ loading ? 'Signing Up...' : 'Sign Up' }}</button>
+        <button type="submit">Sign Up</button>
       </form>
+
       <p class="auth-link">
         Already have an account? <router-link to="/signin">Sign in here</router-link>
       </p>
     </div>
   </div>
 </template>
+
 
 <script>
 import { ref } from "vue";
@@ -33,28 +32,19 @@ export default {
   setup() {
     const email = ref("");
     const password = ref("");
-    const showPassword = ref(false);
-    const loading = ref(false);
     const router = useRouter();
 
-    const togglePassword = () => {
-      showPassword.value = !showPassword.value;
-    };
-
     const signUp = async () => {
-      loading.value = true;
       try {
         await createUserWithEmailAndPassword(auth, email.value, password.value);
         alert("Sign up successful!");
         router.push("/signin");
       } catch (error) {
         alert(error.message);
-      } finally {
-        loading.value = false;
       }
     };
 
-    return { email, password, showPassword, togglePassword, signUp, loading };
+    return { email, password, signUp };
   }
 };
 </script>
@@ -65,7 +55,7 @@ export default {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-image: url('@/views/img/loginUI.png');
+  background-image: url('@/views/img/loginUI.png'); /* Background image */
   background-size: cover;
   background-position: center;
 }
@@ -74,24 +64,74 @@ export default {
   max-width: 400px;
   width: 90%;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   text-align: center;
 }
 
-.password-wrapper {
-  position: relative;
+.auth-image {
+  width: 100%;
+  max-width: 150px; /* Adjust size as needed */
+  margin-bottom: 20px;
+  border-radius: 10px;
 }
 
-.toggle-password {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
+h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  color: #000;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: #fff; /* White background for inputs */
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background: #000;
+  color: #fff;
   border: none;
+  border-radius: 5px;
   cursor: pointer;
-  font-size: 18px;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #333;
+}
+
+.auth-link {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #666;
+}
+
+.auth-link a {
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.auth-link a:hover {
+  text-decoration: underline;
+  color: #333;
 }
 </style>

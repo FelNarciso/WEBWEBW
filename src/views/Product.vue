@@ -145,10 +145,35 @@
 	/* Product Grid */
 	.product-grid {
 	display: grid;
-	grid-template-columns: repeat(5, 1fr); /* 5 columns */
+	grid-template-columns: repeat(5, 1fr); /* 5 columns by default */
 	gap: 16px; /* Space between items */
 	row-gap: 100px; /* Adds spacing between rows */
 	margin: 0 200px; /* Add 200px spacing on both sides */
+	}
+
+	/* Media query for tablets (e.g., screens less than 1024px) */
+	@media (max-width: 1024px) {
+	.product-grid {
+	grid-template-columns: repeat(3, 1fr); /* 3 columns for tablets */
+	margin: 0 100px; /* Reduce side margins */
+	}
+	}
+
+	/* Media query for smaller tablets (e.g., screens less than 768px) */
+	@media (max-width: 768px) {
+	.product-grid {
+	grid-template-columns: repeat(2, 1fr); /* 2 columns for smaller tablets */
+	margin: 0 50px; /* Further reduce side margins */
+	}
+	}
+
+	/* Media query for mobile devices (e.g., screens less than 480px) */
+	@media (max-width: 480px) {
+	.product-grid {
+	grid-template-columns: repeat(1, 1fr); /* 1 column for mobile */
+	margin: 0 20px; /* Minimal side margins */
+	row-gap: 50px; /* Reduce row gap for mobile */
+	}
 	}
 
 	/* Fixed "View Cart" Button */
@@ -173,4 +198,4 @@
 	background: #333; /* Darker black on hover */
 	transform: scale(1.05); /* Add hover effect */
 	}
-</style>	
+</style>

@@ -1,11 +1,37 @@
 <template>
 	<div>
+		<!-- Navbar -->
 		<nav :class="['navbar', { 'transparent-navbar': isHome, 'black-navbar': !isHome }]">
 			<div class="container">
+				<!-- Logo -->
 				<a class="logo">ANG POGI NI FRANK</a>
-				<ul class="nav-links">
+
+				<!-- Hamburger Menu Icon (for mobile) -->
+				<div class="hamburger" @click="toggleMenu">
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+
+				<!-- Navigation Links -->
+				<ul class="nav-links" :class="{ active: isMenuOpen }">
 					<li>
 						<router-link to="/">Home</router-link>
+					</li>
+					<!-- Account Dropdown -->
+					<li class="dropdown" @click.stop="toggleDropdown">
+						<a class="dropdown-toggle">Account ▼</a>
+						<ul class="dropdown-menu" :class="{ show: isDropdownOpen }">
+							<li v-if="!isUserLoggedIn">
+								<router-link to="/signin" @click="closeDropdown">Sign In</router-link>
+							</li>
+							<li v-if="!isUserLoggedIn">
+								<router-link to="/signup" @click="closeDropdown">Sign Up</router-link>
+							</li>
+							<li v-if="isUserLoggedIn">
+								<a @click="logout">Logout</a>
+							</li>
+						</ul>
 					</li>
 					<li>
 						<router-link to="/about">About</router-link>
@@ -19,27 +45,12 @@
 					<li>
 						<router-link to="/cart">Cart</router-link>
 					</li>
-
-					<!-- Account Dropdown -->
-					<li class="dropdown" @mouseover="openDropdown" @mouseleave="closeDropdown">
-						<a class="dropdown-toggle">Account ▼</a>
-						<ul class="dropdown-menu" :class="{ show: isDropdownOpen }">
-							<li v-if="!isUserLoggedIn">
-								<router-link to="/signin">Sign In</router-link>
-							</li>
-							<li v-if="!isUserLoggedIn">
-								<router-link to="/signup">Sign Up</router-link>
-							</li>
-							<li v-if="isUserLoggedIn">
-								<a @click="logout">Logout</a>
-							</li>
-						</ul>
-					</li>
 				</ul>
 			</div>
 		</nav>
 
-		<router-view />
+		<!-- Router View -->
+		<router-view style="padding-top: 70px;" />
 	</div>
 </template>
 
@@ -53,6 +64,7 @@
 	setup() {
 	const isDropdownOpen = ref(false);
 	const isUserLoggedIn = ref(false);
+	const isMenuOpen = ref(false); // For hamburger menu
 	const route = useRoute();
 	const router = useRouter();
 	const isHome = ref(route.path === "/");
@@ -62,11 +74,14 @@
 	auth.onAuthStateChanged((user) => {
 	isUserLoggedIn.value = !!user;
 	if (user) {
-	cartStore.loadCart(); // Load cart when user logs in
+	cartStore.loadCart();
 	} else {
-	cartStore.clearCart(); // Clear cart when user logs out
+	cartStore.clearCart();
 	}
 	});
+
+	// Close dropdown when clicking outside
+	document.addEventListener("click", closeDropdownOutside);
 	});
 
 	// Watch for route changes to update navbar style
@@ -74,40 +89,52 @@
 	isHome.value = newRoute.path === "/";
 	});
 
-	const openDropdown = () => {
-	isDropdownOpen.value = true;
+	const toggleDropdown = () => {
+	isDropdownOpen.value = !isDropdownOpen.value; // Toggle dropdown
 	};
 
 	const closeDropdown = () => {
-	isDropdownOpen.value = false;
+	isDropdownOpen.value = false; // Close dropdown
 	};
 
-	// Logout function
+	const closeDropdownOutside = (event) => {
+	const dropdown = document.querySelector(".dropdown");
+	if (dropdown && !dropdown.contains(event.target)) {
+	isDropdownOpen.value = false;
+	}
+	};
+
+	const toggleMenu = () => {
+	isMenuOpen.value = !isMenuOpen.value; // Toggle menu visibility
+	};
+
 	const logout = async () => {
 	try {
 	await auth.signOut();
 	alert("Logged out successfully!");
-	router.push("/signin"); // Redirect to sign-in page
-	window.location.reload(); // Refresh the page
+	router.push("/signin");
+	window.location.reload();
 	} catch (error) {
 	alert(error.message);
 	}
 	};
 
-	return { isDropdownOpen, isUserLoggedIn, isHome, openDropdown, closeDropdown, logout };
+	return {
+	isDropdownOpen,
+	isUserLoggedIn,
+	isHome,
+	isMenuOpen,
+	toggleDropdown,
+	closeDropdown,
+	toggleMenu,
+	logout,
+	};
 	},
 	};
 </script>
 
 <style>
-	/* Global Styles */
-	body {
-	font-family: "Poppins", sans-serif;
-	background: #f8f8f8;
-	margin: 0;
-	}
-
-	/* Navbar */
+	/* Navbar Styles */
 	.navbar {
 	position: fixed;
 	top: 0;
@@ -222,5 +249,55 @@
 	.dropdown-menu li a:hover {
 	background: #e6b800;
 	color: white;
+	}
+
+	/* Hamburger Menu Styles */
+	.hamburger {
+	display: none;
+	flex-direction: column;
+	cursor: pointer;
+	}
+
+	.hamburger span {
+	width: 25px;
+	height: 3px;
+	background: white;
+	margin: 4px 0;
+	transition: 0.3s;
+	}
+
+	/* Mobile Styles */
+	@media (max-width: 768px) {
+	.hamburger {
+	display: flex;
+	}
+
+	.nav-links {
+	position: fixed;
+	top: 70px;
+	right: -100%;
+	width: 100%;
+	height: calc(100vh - 70px);
+	background: #000;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	transition: 0.3s;
+	}
+
+	.nav-links.active {
+	right: 0;
+	}
+
+	.nav-links li {
+	margin: 20px 0;
+	}
+
+	.dropdown-menu {
+	position: static; /* Adjust dropdown for mobile */
+	margin-top: 10px;
+	width: 100%; /* Full width on mobile */
+	text-align: center; /* Center align text */
+	}
 	}
 </style>
