@@ -32,7 +32,7 @@
 			<!-- Fixed "View Cart" Button -->
 			<div class="fixed-cart-button">
 				<router-link to="/cart" class="btn btn-view-cart">
-					View Cart ({{ cart.length }})
+					View Cart
 				</router-link>
 			</div>
 		</div>

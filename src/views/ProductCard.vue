@@ -20,45 +20,26 @@
 				</button>
 			</div>
 		</div>
-
-		<!-- Modal -->
-		<Teleport to="body">
-			<div v-if="isModalOpen" class="modal-overlay" @click="closeModal">
-				<div class="modal-content" @click.stop="">
-					<button class="close-btn" @click="isModalOpen = false">&times;</button>
-					<img :src="product.image" class="modal-image" alt="Product Image" />
-					<h3>{{ product.name }}</h3>
-					<p>{{ product.description }}</p>
-					<p class="text-primary font-weight-bold">${{ product.price }}</p>
-				</div>
-			</div>
-		</Teleport>
 	</div>
 </template>
 
 <script>
-	import { cartStore } from "@/stores/cartStore.js"; // Import store
+	import { cartStore } from "@/stores/cartStore.js";
+	import { auth } from "@/firebase"; // Import Firebase auth
 
 	export default {
 	props: {
 	product: Object,
 	},
-	data() {
-	return {
-	isModalOpen: false,
-	};
-	},
 	methods: {
-	openModal() {
-	this.isModalOpen = true;
-	},
-	closeModal(event) {
-	if (event.target.classList.contains("modal-overlay")) {
-	this.isModalOpen = false;
-	}
-	},
 	addToCart() {
-	cartStore.addToCart(this.product); // Directly call cartStore method
+	const user = auth.currentUser;
+	if (user) {
+	cartStore.addToCart(this.product); // Add to cart if logged in
+	} else {
+	alert("Please log in to add products to your cart."); // Show alert if not logged in
+	this.$router.push("/signin"); // Redirect to login page
+	}
 	},
 	},
 	};
