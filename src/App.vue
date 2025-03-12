@@ -20,7 +20,7 @@
 					</li>
 					<!-- Account Dropdown -->
 					<li class="dropdown" @click.stop="toggleDropdown">
-						<a class="dropdown-toggle">Account ▼</a>
+						<a class="dropdown-toggle">Account</a>
 						<ul class="dropdown-menu" :class="{ show: isDropdownOpen }">
 							<li v-if="!isUserLoggedIn">
 								<router-link to="/signin" @click="closeDropdown">Sign In</router-link>
