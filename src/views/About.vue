@@ -48,23 +48,32 @@
 	@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
 	/* Reset margin and padding */
-	body, html {
+	/* body, html {
 	margin: 0;
 	padding: 0;
-	overflow: hidden; /* Remove scrollbar */
-	}
+	overflow: auto;
+	} */
+    
+    html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Prevents horizontal scrolling but allows vertical scrolling */
+    overflow-y: auto; /* Enables vertical scrolling */
+}
+
+
 
 	/* Page Layout */
-	.about-container {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	height: 100vh; /* Full height without scrolling */
-	background: #f9f9f9; /* Soft background color */
-	font-family: 'Poppins', sans-serif;
-	padding: 25px; /* Slightly increased padding */
-	box-sizing: border-box; /* Include padding in height calculation */
-	}
+    .about-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Start content from the top */
+    justify-content: center;
+    min-height: 100vh; /* Ensure it can grow */
+    padding-top: 20px; /* Push content down a bit */
+    box-sizing: border-box;
+} 
+
 
 	/* Content Styling */
 	.content {
@@ -135,24 +144,69 @@
 	}
 
 	/* Responsive Design */
-	@media (max-width: 768px) {
-	.about-container {
-	padding: 15px; /* Adjust padding for mobile */
-	}
+    @media (max-width: 768px) {
+	   .about-container {
+	       padding: 15px; 
+	   }
 
-	.content {
-	flex-direction: column;
-	padding: 25px; /* Adjust padding for mobile */
-	}
+	   .content {
+	       flex-direction: column;
+	       padding: 25px; /* Adjust padding for mobile */
+	   }
 
-	.text-section {
-	padding-right: 0;
-	margin-bottom: 20px;
-	}
+	   .text-section {
+	       padding-right: 0;
+	       margin-bottom: 20px;
+	   }
 
-	.image-section img {
-	max-width: 100%; /* Full width on mobile */
-	max-height: 300px; /* Adjusted height for mobile */
-	}
-	}
+	   .image-section img {
+	       max-width: 100%; /* Full width on mobile */
+	       max-height: 300px; /* Adjusted height for mobile */
+	   }
+    }
+    
+@media (max-width: 479px) {
+    .about-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; /* Ensures content starts from the top */
+        justify-content: flex-start;
+        min-height: auto; /* Allows it to expand if needed */
+        padding-top: 30px; /* Pushes the content down */
+    }
+
+    .content {
+        flex-direction: column;
+        padding: 15px;
+        width: 100%;
+    }
+
+    .text-section {
+        padding-right: 0;
+        margin-bottom: 15px;
+        text-align: center; /* Center text */
+    }
+
+    .text-section h1 {
+        font-size: 28px;
+        margin-top: 10px; /* Ensures it doesn't get pushed off */
+        padding-top: 20px;
+    }
+
+    .image-section img {
+        max-width: 100%;
+        max-height: 250px;
+        object-fit: cover;
+    }
+
+    html, body {
+        overflow-x: hidden;
+        overflow-y: auto; /* Enables vertical scrolling */
+    }
+}
+
+
+
+    
+    
 </style>

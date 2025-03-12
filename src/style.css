@@ -21,6 +21,13 @@
   }
 }
 
+@media (max-width: 479px) {
+  .responsive-container {
+    padding: 8px;
+    background-color: lightseagreen;
+  }
+}
+
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: var(--breakpoint-md)) {
   .responsive-container {
@@ -28,6 +35,7 @@
     background-color: lightblue;
   }
 }
+
 
 /* Large devices (desktops, 1024px and up) */
 @media (min-width: var(--breakpoint-lg)) {

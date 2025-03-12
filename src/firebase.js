@@ -8,12 +8,12 @@ const firebaseConfig = {
   projectId: "ecom-f0853",
   storageBucket: "ecom-f0853.appspot.com",
   messagingSenderId: "151432078356",
-  appId: "1:151432078356:web:61f9b2047a722931da3301" // Make sure this is correct!
+  appId: "1:151432078356:web:61f9b2047a722931da3301"
 };
 
-// Initialize Firebase
+
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-export { auth, db }; // Export both auth and db
+export { auth, db };
