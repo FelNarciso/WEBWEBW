@@ -2,15 +2,24 @@
   <div class="auth-page">
     <div class="auth-container">
       <h2>Sign Up</h2>
+
+      <!-- Error and Success Message Area -->
+      <div v-if="errorMessage || successMessage" class="message-container">
+        <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+        <p v-if="successMessage" class="success-message">{{ successMessage }}</p>
+      </div>
+
       <form @submit.prevent="signUp">
         <div class="form-group">
           <label for="email">Email</label>
           <input type="email" id="email" v-model="email" required />
         </div>
+
         <div class="form-group">
           <label for="password">Password</label>
           <input type="password" id="password" v-model="password" required />
         </div>
+
         <button type="submit">Sign Up</button>
       </form>
 
@@ -20,7 +29,6 @@
     </div>
   </div>
 </template>
-
 
 <script>
 import { ref } from "vue";
@@ -32,30 +40,44 @@ export default {
   setup() {
     const email = ref("");
     const password = ref("");
+    const errorMessage = ref("");
+    const successMessage = ref("");
     const router = useRouter();
 
     const signUp = async () => {
+      errorMessage.value = "";
+      successMessage.value = "";
+
       try {
         await createUserWithEmailAndPassword(auth, email.value, password.value);
-        alert("Sign up successful!");
-        router.push("/signin");
+        successMessage.value = "🎉 Your account has been created successfully!";
+        setTimeout(() => router.push("/signin"), 2000);
       } catch (error) {
-        alert(error.message);
+        if (error.code === "auth/email-already-in-use") {
+          errorMessage.value = "❌ This email is already registered.";
+        } else if (error.code === "auth/invalid-email") {
+          errorMessage.value = "❌ Please enter a valid email address.";
+        } else if (error.code === "auth/weak-password") {
+          errorMessage.value = "❌ Password should be at least 6 characters.";
+        } else {
+          errorMessage.value = "⚠️ Error: " + error.message;
+        }
       }
     };
 
-    return { email, password, signUp };
+    return { email, password, signUp, errorMessage, successMessage };
   }
 };
 </script>
 
 <style scoped>
+/* ORIGINAL DESIGN PRESERVED */
 .auth-page {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-image: url('@/views/img/loginUI.png'); /* Background image */
+  background-image: url('@/views/img/loginUI.png');
   background-size: cover;
   background-position: center;
 }
@@ -64,22 +86,32 @@ export default {
   max-width: 400px;
   width: 90%;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+  background: rgba(255, 255, 255, 0.9);
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   text-align: center;
+  font-family: 'Poppins', sans-serif;
 }
 
-.auth-image {
-  width: 100%;
-  max-width: 150px; /* Adjust size as needed */
-  margin-bottom: 20px;
-  border-radius: 10px;
+.message-container {
+  min-height: 30px;
+  margin-bottom: 10px;
 }
 
-h2 {
-  margin-bottom: 20px;
-  color: #333;
+.error-message {
+  color: #d32f2f;
+  background: #ffebee;
+  border: 1px solid #d32f2f;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+.success-message {
+  color: #2e7d32;
+  background: #e8f5e9;
+  border: 1px solid #2e7d32;
+  padding: 8px;
+  border-radius: 5px;
 }
 
 .form-group {
@@ -88,8 +120,8 @@ h2 {
 }
 
 label {
-  font-weight: bold;
   display: block;
+  font-weight: bold;
   margin-bottom: 5px;
   color: #000;
 }
@@ -99,7 +131,7 @@ input {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  background: #fff; /* White background for inputs */
+  background: #fff;
 }
 
 button {

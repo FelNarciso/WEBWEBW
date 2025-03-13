@@ -20,7 +20,7 @@
 					</li>
 					<!-- Account Dropdown -->
 					<li class="dropdown" @click.stop="toggleDropdown">
-						<a class="dropdown-toggle">Account ▼</a>
+						<a class="dropdown-toggle">Account</a>
 						<ul class="dropdown-menu" :class="{ show: isDropdownOpen }">
 							<li v-if="!isUserLoggedIn">
 								<router-link to="/signin" @click="closeDropdown">Sign In</router-link>
@@ -111,11 +111,10 @@
 	const logout = async () => {
 	try {
 	await auth.signOut();
-	alert("Logged out successfully!");
-	router.push("/signin");
-	window.location.reload();
+	router.push("/signin"); // Redirects directly without alert
+	window.location.reload(); // Ensures the UI updates properly
 	} catch (error) {
-	alert(error.message);
+	console.error("Logout Error:", error.message);
 	}
 	};
 
