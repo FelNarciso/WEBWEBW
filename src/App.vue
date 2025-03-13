@@ -111,11 +111,10 @@
 	const logout = async () => {
 	try {
 	await auth.signOut();
-	alert("Logged out successfully!");
-	router.push("/signin");
-	window.location.reload();
+	router.push("/signin"); // Redirects directly without alert
+	window.location.reload(); // Ensures the UI updates properly
 	} catch (error) {
-	alert(error.message);
+	console.error("Logout Error:", error.message);
 	}
 	};
 

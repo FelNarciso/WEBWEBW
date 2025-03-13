@@ -51,10 +51,10 @@
 	return {
 	searchQuery: "",
 	products: [
-	{ id: 1, name: "Product 1", description: "Amazing product.", price: 29.99, image: "https://via.placeholder.com/150" },
-	{ id: 2, name: "Product 2", description: "You will love this one.", price: 39.99, image: "https://via.placeholder.com/150" },
-	{ id: 3, name: "Product 3", description: "Top-quality and affordable.", price: 19.99, image: "https://via.placeholder.com/150" },
-	{ id: 4, name: "Product 4", description: "Best seller!", price: 49.99, image: "https://via.placeholder.com/150" },
+	{ id: 1, name: "Samsung Television", description: "32'' HD N4003 TV.", price: 29.99, image: "https://images.samsung.com/is/image/samsung/ph-hdtv-n4003-ua32n4003arxxp-frontblack-100425777?$720_576_JPG$" },
+	{ id: 2, name: "Philips", description: "LED 4K Ambilight TV", price: 39.99, image: "https://images.philips.com/is/image/philipsconsumer/a10ea7f6c75a4cf4b7caafaf00cba3dd?$pnglarge$&wid=960" },
+	{ id: 3, name: "Le Creuse", description: "Signature Enameled Cast Iron Skillet Fry Pan", price: 19.99, image: "https://assets.wsimgs.com/wsimgs/rk/images/dp/wcm/202441/0013/le-creuset-signature-enameled-cast-iron-skillet-fry-pan-o.jpg" },
+	{ id: 4, name: "Wüsthof", description: "Classic Chef's Knife", price: 49.99, image: "https://assets.wsimgs.com/wsimgs/rk/images/dp/wcm/202508/0024/img350o.jpg" },
 	{ id: 5, name: "Product 5", description: "Best seller!", price: 49.99, image: "https://via.placeholder.com/150" },
 	{ id: 6, name: "Product 1", description: "Amazing product.", price: 29.99, image: "https://via.placeholder.com/150" },
 	{ id: 7, name: "Product 2", description: "You will love this one.", price: 39.99, image: "https://via.placeholder.com/150" },
