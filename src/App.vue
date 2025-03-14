@@ -4,7 +4,7 @@
 		<nav :class="['navbar', { 'transparent-navbar': isHome, 'black-navbar': !isHome }]">
 			<div class="container">
 				<!-- Logo -->
-				<a class="logo">ANG POGI NI FRANK</a>
+				<a class="logo">Hidden Garage</a>
 
 				<!-- Hamburger Menu Icon (for mobile) -->
 				<div class="hamburger" @click="toggleMenu">

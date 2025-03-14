@@ -3,17 +3,17 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAWENR18PMKVpXrEMmW15qNlL1Z7bn5HlI",
-  authDomain: "ecom-f0853.firebaseapp.com",
-  projectId: "ecom-f0853",
-  storageBucket: "ecom-f0853.appspot.com",
-  messagingSenderId: "151432078356",
-  appId: "1:151432078356:web:61f9b2047a722931da3301" // Make sure this is correct!
+  apiKey: import.meta.env.VITE_apiKey,
+  authDomain: import.meta.env.VITE_authDomain,
+  projectId: import.meta.env.VITE_projectId,
+  storageBucket: import.meta.env.VITE_storageBucket,
+  messagingSenderId: import.meta.env.VITE_messagingSenderId,
+  appId: import.meta.env.VITE_appId
 };
 
-// Initialize Firebase
+
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-export { auth, db }; // Export both auth and db
+export { auth, db };

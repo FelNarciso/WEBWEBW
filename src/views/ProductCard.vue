@@ -1,5 +1,5 @@
 <template>
-	<div class="card shadow-lg position-relative">
+	<div v-if="product" class="card shadow-lg position-relative">
 		<div class="card-image-container">
 			<img :src="product.image" class="card-img-top" alt="Product Image" />
 		</div>
@@ -19,8 +19,8 @@
 			</div>
 		</div>
 
-		<Teleport to="body">
-			<div v-if="isModalOpen" class="modal-overlay" @click="closeModal">
+		<Teleport to="body"  v-if="isModalOpen">
+			<div class="modal-overlay" @click="closeModal">
 				<div class="modal-content" @click.stop="">
 					<button class="close-btn" @click="closeModal">&times;</button>
 					<img :src="product.image" class="modal-image" alt="Product Image" />
@@ -53,19 +53,24 @@
 	isModalOpen.value = false;
 	};
 
-	const addToCart = () => {
-	const user = auth.currentUser;
-	if (user) {
-	cartStore.addToCart(this.product);
-	} else {
-	alert("Please log in to add products to your cart.");
-	this.$router.push("/signin");
+
+	return { isModalOpen, openModal, closeModal};
+	},
+    
+    methods: {
+        addToCart() {
+	       const user = auth.currentUser;
+	       if (user) {
+	           cartStore.addToCart(this.product);
+	       } else {
+	           alert("Please log in to add products to your cart.");
+	           this.$router.push("/signin");
+	       }
 	}
+
+    }
 	};
 
-	return { isModalOpen, openModal, closeModal, addToCart };
-	},
-	};
 </script>
 
 <style scoped="">

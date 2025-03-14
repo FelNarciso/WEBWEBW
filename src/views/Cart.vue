@@ -7,7 +7,7 @@
 			<router-link to="/product" class="btn btn-primary">Continue Shopping</router-link>
 		</div>
 
-		<div v-else="">
+		<div v-else>
 			<table class="table cart-table">
 				<thead>
 					<tr>
@@ -34,45 +34,54 @@
 			</table>
 
 			<p class="total-price">Total: ${{ totalPrice }}</p>
-			<button class="btn btn-success checkout-btn">Proceed to Checkout</button>
+			<button class="btn btn-success checkout-btn" @click="checkout">Proceed to Checkout</button>
 		</div>
 	</div>
 </template>
 
 <script>
-	import { computed, onMounted, watch } from "vue";
-	import { cartStore } from "@/stores/cartStore.js";
+import { computed, onMounted, watch } from "vue";
+import { useRouter } from "vue-router";
+import { cartStore } from "@/stores/cartStore.js";
 
-	export default {
+export default {
 	setup() {
-	const cart = computed(() => cartStore.cart);
+		const cart = computed(() => cartStore.cart);
+		const router = useRouter();
 
-	const removeItem = async (index) => {
-	console.log("Remove button clicked for index:", index);
-	await cartStore.removeFromCart(index);
-	};
+		const removeItem = async (index) => {
+			console.log("Remove button clicked for index:", index);
+			await cartStore.removeFromCart(index);
+		};
 
-	const totalPrice = computed(() => {
-	return cart.value.reduce((sum, item) => sum + item.price, 0).toFixed(2);
-	});
+		const totalPrice = computed(() => {
+			return cart.value.reduce((sum, item) => sum + item.price, 0).toFixed(2);
+		});
 
-	onMounted(() => {
-	cartStore.loadCart();
-	});
+		const checkout = async () => {
+			await cartStore.clearCart(); 
+			router.push("/success"); 
+		};
 
-	watch(cart, (newCart) => {
-	console.log("Cart updated:", newCart);
-	});
+		onMounted(() => {
+			cartStore.loadCart();
+		});
 
-	return { cart, removeItem, totalPrice };
+		watch(cart, (newCart) => {
+			console.log("Cart updated:", newCart);
+		});
+
+		return { cart, removeItem, totalPrice, checkout };
 	},
-	};
+};
 </script>
+
+
 
 <style scoped="">
 	/* 🎨 Background and container styling */
 	.cart-container {
-	background: #f8f9fa; /* Soft gray background */
+	background: #f8f9fa; 
 	border-radius: 12px;
 	padding: 20px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

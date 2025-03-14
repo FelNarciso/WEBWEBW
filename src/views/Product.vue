@@ -40,12 +40,12 @@
 </template>
 
 <script>
-	import ProductCard from "@/views/ProductCard.vue"; // Import the ProductCard component
-	import { cartStore } from "@/stores/cartStore.js"; // Import the cart store
+	import ProductCard from "@/views/ProductCard.vue"; 
+	import { cartStore } from "@/stores/cartStore.js"; 
 
 	export default {
 	components: {
-	ProductCard, // Register the ProductCard component
+	ProductCard, 
 	},
 	data() {
 	return {
@@ -55,14 +55,14 @@
 	{ id: 2, name: "Philips", description: "LED 4K Ambilight TV", price: 39.99, image: "https://images.philips.com/is/image/philipsconsumer/a10ea7f6c75a4cf4b7caafaf00cba3dd?$pnglarge$&wid=960" },
 	{ id: 3, name: "Le Creuse", description: "Signature Enameled Cast Iron Skillet Fry Pan", price: 19.99, image: "https://assets.wsimgs.com/wsimgs/rk/images/dp/wcm/202441/0013/le-creuset-signature-enameled-cast-iron-skillet-fry-pan-o.jpg" },
 	{ id: 4, name: "Wüsthof", description: "Classic Chef's Knife", price: 49.99, image: "https://assets.wsimgs.com/wsimgs/rk/images/dp/wcm/202508/0024/img350o.jpg" },
-	{ id: 5, name: "Product 5", description: "Best seller!", price: 49.99, image: "https://via.placeholder.com/150" },
-	{ id: 6, name: "Product 1", description: "Amazing product.", price: 29.99, image: "https://via.placeholder.com/150" },
-	{ id: 7, name: "Product 2", description: "You will love this one.", price: 39.99, image: "https://via.placeholder.com/150" },
-	{ id: 8, name: "Product 3", description: "Top-quality and affordable.", price: 19.99, image: "https://via.placeholder.com/150" },
-	{ id: 9, name: "Product 4", description: "Best seller!", price: 49.99, image: "https://via.placeholder.com/150" },
-	{ id: 10, name: "Product 5", description: "Best seller!", price: 49.99, image: "https://via.placeholder.com/150" },
+	{ id: 5, name: "Formal Clothing", description: "Set of tuxedo, slacks, and internal coat", price: 49.99, image: "./prods/cloth1.jpg" },
+	{ id: 6, name: "Pokemon Pajamas - Charizard", description: "A Charizard-inspired pajamas for sleeping", price: 29.99, image: "./prods/cloth2.jpg" },
+	{ id: 7, name: "A Book on C", description: "Learn C language with this book written by Ira Pohl", price: 39.99, image: "./prods/book1.jpg" },
+	{ id: 8, name: "Bloodborne", description: "Witness the fantasy of this Lovecraft-inspired world as a hunter.", price: 19.99, image: "./prods/book2.jpg" },
+	{ id: 9, name: "LEGO Set - Star Wars", description: "Experience Star Wars through building blocks!", price: 49.99, image: "./prods/toy1.jpg" },
+	{ id: 10, name: "Yoyos", description: "Classic fun in the palm of your hand—smooth spins, cool tricks, endless entertainment!", price: 49.99, image: "./prods/toy2.jpg" },
 	],
-	cart: JSON.parse(localStorage.getItem("cart")) || [], // Retrieve cart from localStorage
+	cart: JSON.parse(localStorage.getItem("cart")) || [], 
 	};
 	},
 	computed: {
@@ -74,8 +74,8 @@
 	},
 	methods: {
 	addToCart(product) {
-	this.cart.push(product); // Add product to cart
-	localStorage.setItem("cart", JSON.stringify(this.cart)); // Save to localStorage
+	this.cart.push(product); 
+	localStorage.setItem("cart", JSON.stringify(this.cart)); 
 	alert(`${product.name} added to cart!`);
 	},
 	},
@@ -85,14 +85,14 @@
 <style scoped="">
 	/* Background for the entire page */
 	.product-page {
-	background-image: url('@/views/img/productbg.jpg'); /* Path to your background image */
-	background-size: cover; /* Ensures the image covers the entire page */
-	background-position: center; /* Centers the image */
-	background-repeat: no-repeat; /* Prevents the image from repeating */
-	background-attachment: fixed; /* Makes the background image fixed */
-	min-height: 100vh; /* Ensures the page covers the full viewport height */
-	padding-top: 60px; /* Adjusted to make it slightly higher */
-	position: relative; /* Needed for overlay positioning */
+	background-image: url('@/views/img/productbg.jpg'); 
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat; 
+	background-attachment: fixed; 
+	min-height: 100vh; 
+	padding-top: 60px; 
+	position: relative; 
 	}
 
 	/* Semi-transparent overlay */
@@ -103,99 +103,99 @@
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background: rgba(0, 0, 0, 0.4); /* Black with 40% opacity */
-	z-index: 1; /* Ensures overlay is above the background image */
+	background: rgba(0, 0, 0, 0.4);
+	z-index: 1; 
 	}
 
 	/* Container */
 	.container {
-	position: relative; /* Ensures content is above the overlay */
-	z-index: 2; /* Higher than overlay */
-	background: transparent; /* Remove white background */
-	border-radius: 10px; /* Rounded corners */
-	padding: 20px; /* Add some padding */
+	position: relative; 
+	z-index: 2; 
+	background: transparent;
+	border-radius: 10px; 
+	padding: 20px; 
 	}
 
 	/* White box for "Our Products" */
 	.title-container {
-	background: white; /* White background */
-	color: black; /* Black text */
-	padding: 20px; /* Add padding */
-	border-radius: 8px; /* Rounded corners */
-	margin-bottom: 20px; /* Space below the title */
-	max-width: 600px; /* Same width as the search bar */
-	margin-left: auto; /* Center horizontally */
-	margin-right: auto; /* Center horizontally */
-	text-align: center; /* Center text */
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+	background: white;
+	color: black; 
+	padding: 20px; 
+	border-radius: 8px; 
+	margin-bottom: 20px; 
+	max-width: 600px; 
+	margin-left: auto; 
+	margin-right: auto; 
+	text-align: center; 
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 	}
 
 	/* Search Bar */
 	.search-bar {
-	width: 100%; /* Make the search bar fill its container */
-	max-width: 600px; /* Adjust the maximum width as needed */
-	margin: 0 auto; /* Center the search bar horizontally */
-	padding: 12px; /* Adjust padding */
-	font-size: 16px; /* Adjust font size */
-	border-radius: 8px; /* Add rounded corners */
-	border: 1px solid #ddd; /* Add a border */
-	background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+	width: 100%; 
+	max-width: 600px; 
+	margin: 0 auto; 
+	padding: 12px; 
+	font-size: 16px; 
+	border-radius: 8px;
+	border: 1px solid #ddd; 
+	background: rgba(255, 255, 255, 0.8); 
 	}
 
 	/* Product Grid */
 	.product-grid {
 	display: grid;
-	grid-template-columns: repeat(5, 1fr); /* 5 columns by default */
-	gap: 16px; /* Space between items */
-	row-gap: 100px; /* Adds spacing between rows */
-	margin: 0 200px; /* Add 200px spacing on both sides */
+	grid-template-columns: repeat(5, 1fr); 
+	gap: 16px; 
+	row-gap: 100px; 
+	margin: 0 200px; 
 	}
 
 	/* Media query for tablets (e.g., screens less than 1024px) */
 	@media (max-width: 1024px) {
 	.product-grid {
-	grid-template-columns: repeat(3, 1fr); /* 3 columns for tablets */
-	margin: 0 100px; /* Reduce side margins */
+	grid-template-columns: repeat(3, 1fr); 
+	margin: 0 100px; 
 	}
 	}
 
 	/* Media query for smaller tablets (e.g., screens less than 768px) */
 	@media (max-width: 768px) {
 	.product-grid {
-	grid-template-columns: repeat(2, 1fr); /* 2 columns for smaller tablets */
-	margin: 0 50px; /* Further reduce side margins */
+	grid-template-columns: repeat(2, 1fr); 
+	margin: 0 50px; 
 	}
 	}
 
 	/* Media query for mobile devices (e.g., screens less than 480px) */
 	@media (max-width: 480px) {
 	.product-grid {
-	grid-template-columns: repeat(1, 1fr); /* 1 column for mobile */
-	margin: 0 20px; /* Minimal side margins */
-	row-gap: 50px; /* Reduce row gap for mobile */
+	grid-template-columns: repeat(1, 1fr); 
+	margin: 0 20px;
+	row-gap: 50px;
 	}
 	}
 
 	/* Fixed "View Cart" Button */
 	.fixed-cart-button {
-	position: fixed; /* Fix the button in place */
-	bottom: 20px; /* Position it 20px from the bottom */
-	right: 20px; /* Position it 20px from the right */
-	z-index: 1000; /* Ensure it's above other content */
+	position: fixed; 
+	bottom: 20px; 
+	right: 20px; 
+	z-index: 1000; 
 	}
 
 	.fixed-cart-button .btn-view-cart {
-	background: black; /* Black background */
-	color: white; /* White text */
-	padding: 12px 24px; /* Adjust padding */
-	font-size: 1rem; /* Adjust font size */
-	border-radius: 8px; /* Rounded corners */
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+	background: black; 
+	color: white; 
+	padding: 12px 24px; 
+	font-size: 1rem;
+	border-radius: 8px; 
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
 	transition: transform 0.3s ease-in-out;
 	}
 
 	.fixed-cart-button .btn-view-cart:hover {
-	background: #333; /* Darker black on hover */
-	transform: scale(1.05); /* Add hover effect */
+	background: #333; 
+	transform: scale(1.05);
 	}
 </style>
