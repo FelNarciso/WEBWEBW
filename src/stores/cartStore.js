@@ -1,13 +1,12 @@
 ﻿import { reactive } from "vue";
-import { auth } from "@/firebase"; // Import Firebase auth
-import { doc, setDoc, getDoc } from "firebase/firestore"; // Import Firestore functions
-import { db } from "@/firebase"; // Import Firestore instance
+import { auth } from "@/firebase";
+import { doc, setDoc, getDoc } from "firebase/firestore";
+import { db } from "@/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 
 export const cartStore = reactive({
   cart: [],
 
-  // ✅ Function must be inside an object, no syntax errors
   async addToCart(product) {
     const user = auth.currentUser;
     if (!user) {
@@ -15,17 +14,21 @@ export const cartStore = reactive({
       return;
     }
 
+    if (!product?.id) {
+      alert("❌ Invalid product!");
+      return;
+    }
+
     const exists = this.cart.some((item) => item.id === product.id);
     if (!exists) {
-      this.cart.push(product);
-      await this.saveCart(user.uid); // Save to Firestore
+      this.cart = [...this.cart, product]; // Ensures Vue detects changes
+      await this.saveCart(user.uid);
       alert("✅ Added to cart successfully!");
     } else {
       alert("❌ This product is already in your cart!");
     }
   },
 
-  // ✅ Fixed `removeFromCart` function
   async removeFromCart(index) {
     console.log("Removing item at index:", index, "Cart before:", this.cart);
     const user = auth.currentUser;
@@ -34,10 +37,13 @@ export const cartStore = reactive({
       return;
     }
 
-    // ✅ Make sure Vue detects the change by assigning a new array
-    this.cart = [...this.cart.slice(0, index), ...this.cart.slice(index + 1)];
-    console.log("Cart after:", this.cart);
+    if (index < 0 || index >= this.cart.length) {
+      alert("❌ Invalid index!");
+      return;
+    }
 
+    this.cart = this.cart.filter((_, i) => i !== index);
+    console.log("Cart after:", this.cart);
     await this.saveCart(user.uid);
   },
 
@@ -68,16 +74,23 @@ export const cartStore = reactive({
     }
   },
 
-  clearCart() {
+  async clearCart() {
     this.cart = [];
+    const user = auth.currentUser;
+    if (user) {
+      await this.saveCart(user.uid);
+    }
   },
 });
 
-// Ensure cart loads when auth state changes
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    cartStore.loadCart();
+// Prevent multiple loadCart() calls
+let cartLoaded = false;
+onAuthStateChanged(auth, async (user) => {
+  if (user && !cartLoaded) {
+    await cartStore.loadCart();
+    cartLoaded = true;
   } else {
     cartStore.clearCart();
+    cartLoaded = false;
   }
 });

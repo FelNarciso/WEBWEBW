@@ -55,12 +55,12 @@
 	{ id: 2, name: "Philips", description: "LED 4K Ambilight TV", price: 39.99, image: "https://images.philips.com/is/image/philipsconsumer/a10ea7f6c75a4cf4b7caafaf00cba3dd?$pnglarge$&wid=960" },
 	{ id: 3, name: "Le Creuse", description: "Signature Enameled Cast Iron Skillet Fry Pan", price: 19.99, image: "https://assets.wsimgs.com/wsimgs/rk/images/dp/wcm/202441/0013/le-creuset-signature-enameled-cast-iron-skillet-fry-pan-o.jpg" },
 	{ id: 4, name: "Wüsthof", description: "Classic Chef's Knife", price: 49.99, image: "https://assets.wsimgs.com/wsimgs/rk/images/dp/wcm/202508/0024/img350o.jpg" },
-	{ id: 5, name: "Product 5", description: "Best seller!", price: 49.99, image: "https://via.placeholder.com/150" },
-	{ id: 6, name: "Product 1", description: "Amazing product.", price: 29.99, image: "https://via.placeholder.com/150" },
-	{ id: 7, name: "Product 2", description: "You will love this one.", price: 39.99, image: "https://via.placeholder.com/150" },
-	{ id: 8, name: "Product 3", description: "Top-quality and affordable.", price: 19.99, image: "https://via.placeholder.com/150" },
-	{ id: 9, name: "Product 4", description: "Best seller!", price: 49.99, image: "https://via.placeholder.com/150" },
-	{ id: 10, name: "Product 5", description: "Best seller!", price: 49.99, image: "https://via.placeholder.com/150" },
+	{ id: 5, name: "Formal Clothing", description: "Set of tuxedo, slacks, and internal coat", price: 49.99, image: "./prods/cloth1.jpg" },
+	{ id: 6, name: "Pokemon Pajamas - Charizard", description: "A Charizard-inspired pajamas for sleeping", price: 29.99, image: "./prods/cloth2.jpg" },
+	{ id: 7, name: "A Book on C", description: "Learn C language with this book written by Ira Pohl", price: 39.99, image: "./prods/book1.jpg" },
+	{ id: 8, name: "Bloodborne", description: "Witness the fantasy of this Lovecraft-inspired world as a hunter.", price: 19.99, image: "./prods/book2.jpg" },
+	{ id: 9, name: "LEGO Set - Star Wars", description: "Experience Star Wars through building blocks!", price: 49.99, image: "./prods/toy1.jpg" },
+	{ id: 10, name: "Yoyos", description: "Classic fun in the palm of your hand—smooth spins, cool tricks, endless entertainment!", price: 49.99, image: "./prods/toy2.jpg" },
 	],
 	cart: JSON.parse(localStorage.getItem("cart")) || [], // Retrieve cart from localStorage
 	};

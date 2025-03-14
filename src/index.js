@@ -6,6 +6,7 @@ import Contact from '@/views/Contact.vue';
 import Cart from '@/views/Cart.vue';
 import SignIn from '@/views/SignIn.vue';
 import SignUp from '@/views/SignUp.vue';
+import Success from '@/views/Success.vue';
 
 const routes = [
   { path: '/', name: 'Home', component: Home },
@@ -14,7 +15,8 @@ const routes = [
   { path: '/contact', name: 'Contact', component: Contact },
   { path: '/cart', name: 'Cart', component: Cart },
   { path: '/signin', name: 'SignIn', component: SignIn },
-  { path: '/signup', name: 'SignUp', component: SignUp }
+  { path: '/signup', name: 'SignUp', component: SignUp },
+  { path: '/success', name: 'Success', component: Success}
 ];
 
 
