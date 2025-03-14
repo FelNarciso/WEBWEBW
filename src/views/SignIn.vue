@@ -93,7 +93,7 @@
 	border-radius: 10px;
 	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 	text-align: center;
-	font-family: 'Poppins', sans-serif; /* Restoring Original Font */
+	font-family: 'Poppins', sans-serif;
 	}
 
 	.message-container {
